@@ -1,0 +1,41 @@
+set ( png_src_DIR ${ANDROID_NDK}/sources/third_party/libpng )
+
+add_library( lib-png
+             STATIC
+             ${png_src_DIR}/png.c
+             ${png_src_DIR}/pngerror.c
+             ${png_src_DIR}/pngget.c
+             ${png_src_DIR}/pngmem.c
+             ${png_src_DIR}/pngpread.c
+             ${png_src_DIR}/pngread.c
+             ${png_src_DIR}/pngrio.c
+             ${png_src_DIR}/pngrtran.c
+             ${png_src_DIR}/pngrutil.c
+             ${png_src_DIR}/pngset.c
+             ${png_src_DIR}/pngtest.c
+             ${png_src_DIR}/pngtrans.c
+             ${png_src_DIR}/pngwio.c
+             ${png_src_DIR}/pngwrite.c
+             ${png_src_DIR}/pngwtran.c
+             ${png_src_DIR}/pngwutil
+             )
+
+include_directories( ${png_src_DIR} )
+
+target_include_directories(native-main PRIVATE
+    ${ANDROID_NDK}/sources/android/native_app_glue
+    ${png_src_DIR})
+
+
+target_link_libraries( # Specifies the target library.
+                       native-main
+
+                       # Links the target library to the log library
+                       # included in the NDK.
+                       app-glue
+                       lib-png
+                       z
+                       log
+                       EGL
+                       GLESv2
+                       android)
